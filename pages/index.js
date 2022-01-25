@@ -25,9 +25,13 @@ export default function PaginaInicial() {
   //const username = 'alexandre-ferreira-leite';
   const [username, setUsername] = React.useState('alexandre-ferreira-leite');
   const roteamento = useRouter();
-
+  const [background, setBackground] = React.useState('/background1.jpg');
   //const background = 'https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg';
-  const background = '/background2.jpg';
+
+
+  function EscolherFundo(evento) {
+      setBackground(evento.target.value);
+  }
 
   return (
     <>
@@ -41,65 +45,76 @@ export default function PaginaInicial() {
       >
         <Box
           styleSheet={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexDirection: {
-              xs: 'column',
-              sm: 'row',
-            },
-            width: '100%', maxWidth: '700px',
-            borderRadius: '5px', padding: '32px', margin: '16px',
-            boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-            backgroundColor: appConfig.theme.colors.neutrals[700],
-          }}
-        >
-          {/* Formulário */}
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            width: { xs: '100%', sm: '50%' }, textAlign: 'center',
+        }}>
           <Box
-            as="form"
-            onSubmit={function (evento, response) {
-              evento.preventDefault();
-              roteamento.push('/chat');
-            }}
             styleSheet={{
-              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-              width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
+              color: appConfig.theme.colors.primary[100]
+          }}>
+            <input type="radio" value="/background1.jpg" name="background" onChange={EscolherFundo} /> Fundo 1 &nbsp;&nbsp;
+            <input type="radio" value="/background2.jpg" name="background" onChange={EscolherFundo} /> Fundo 2
+          </Box>
+          <Box
+            styleSheet={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexDirection: {
+                xs: 'column',
+                sm: 'row',
+              },
+              width: '100%', maxWidth: '700px',
+              borderRadius: '5px', padding: '32px', margin: '16px',
+              boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
+              backgroundColor: appConfig.theme.colors.neutrals[700],
             }}
           >
-            <Titulo tag="h2">Boas vindas de volta!</Titulo>
-            <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
-              {appConfig.name}
-            </Text>
+            {/* Formulário */}
+            <Box
+              as="form"
+              onSubmit={function (evento, response) {
+                evento.preventDefault();
+                roteamento.push('/chat');
+              }}
+              styleSheet={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
+              }}
+            >
+              <Titulo tag="h2">Boas vindas de volta!</Titulo>
+              <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
+                {appConfig.name}
+              </Text>
 
-            <TextField
-              value={username}
-              onChange={function (event){
-                setUsername(event.target.value);
-              }}
-              fullWidth
-              textFieldColors={{
-                neutral: {
-                  textColor: appConfig.theme.colors.neutrals[200],
-                  mainColor: appConfig.theme.colors.neutrals[900],
-                  mainColorHighlight: appConfig.theme.colors.primary[500],
-                  backgroundColor: appConfig.theme.colors.neutrals[800],
-                },
-              }}
-            />
-            <Button
-              type='submit'
-              label='Entrar'
-              fullWidth
-              buttonColors={{
-                contrastColor: appConfig.theme.colors.neutrals["000"],
-                mainColor: appConfig.theme.colors.primary[500],
-                mainColorLight: appConfig.theme.colors.primary[400],
-                mainColorStrong: appConfig.theme.colors.primary[600],
-              }}
-            />
-          </Box>
-          {/* Formulário */}
-
+              <TextField
+                value={username}
+                onChange={function (event){
+                  setUsername(event.target.value);
+                }}
+                fullWidth
+                textFieldColors={{
+                  neutral: {
+                    textColor: appConfig.theme.colors.neutrals[200],
+                    mainColor: appConfig.theme.colors.neutrals[900],
+                    mainColorHighlight: appConfig.theme.colors.primary[500],
+                    backgroundColor: appConfig.theme.colors.neutrals[800],
+                  },
+                }}
+              />
+              <Button
+                type='submit'
+                label='Entrar'
+                fullWidth
+                buttonColors={{
+                  contrastColor: appConfig.theme.colors.neutrals["000"],
+                  mainColor: appConfig.theme.colors.primary[500],
+                  mainColorLight: appConfig.theme.colors.primary[400],
+                  mainColorStrong: appConfig.theme.colors.primary[600],
+                }}
+              />
+            </Box>
+            {/* Formulário */}
 
           {/* Photo Area */}
           <Box
@@ -137,6 +152,7 @@ export default function PaginaInicial() {
             </Text>
           </Box>
           {/* Photo Area */}
+          </Box>
         </Box>
       </Box>
     </>
