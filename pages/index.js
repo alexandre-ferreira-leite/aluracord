@@ -62,7 +62,7 @@ function Titulo(props) {
 export default function PaginaInicial() {
   const username = 'alexandre-ferreira-leite';
   //const background = 'https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg';
-  const background1 = '/background2.jpg';
+  const background2 = '/background2.jpg';
 
   return (
     <>
