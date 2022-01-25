@@ -1,6 +1,5 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 import appConfig from '../config.json';
-import background2 from '../img/background1.jpg';
 
 function GlobalStyle() {
   return (
@@ -62,7 +61,7 @@ function Titulo(props) {
 
 export default function PaginaInicial() {
   const username = 'alexandre-ferreira-leite';
-  const background = 'https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg';
+  //const background = 'https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg';
 
   return (
     <>
@@ -70,8 +69,8 @@ export default function PaginaInicial() {
       <Box
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          backgroundColor: appConfig.theme.colors.primary[500],
-          backgroundImage: `url(${background})`,
+          backgroundColor: appConfig.theme.colors.primary[100],
+          backgroundImage: 'url(/background2.jpg)',
           backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
         }}
       >
