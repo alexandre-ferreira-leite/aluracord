@@ -23,11 +23,11 @@ function Titulo(props) {
 
 export default function PaginaInicial() {
   //const username = 'alexandre-ferreira-leite';
-  const [username, setUsername] = React.useState('');
+  const [username, setUsername] = React.useState('alexandre-ferreira-leite');
   const roteamento = useRouter();
 
   //const background = 'https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg';
-  const background2 = '/background2.jpg';
+  const background = '/background2.jpg';
 
   return (
     <>
@@ -35,7 +35,7 @@ export default function PaginaInicial() {
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           backgroundColor: appConfig.theme.colors.primary[100],
-          backgroundImage: `url(${background2})`,
+          backgroundImage: `url(${background})`,
           backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
         }}
       >
