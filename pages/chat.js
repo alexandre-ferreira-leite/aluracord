@@ -1,22 +1,53 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React from 'react';
 import appConfig from '../config.json';
+import { createClient } from '@supabase/supabase-js';
+
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzI5Njg3MiwiZXhwIjoxOTU4ODcyODcyfQ.T6F6r48xS_dwd7gYybYhh3ke8imiLv4bTM8Hwb6yMiI';
+const SUPABASE_URL = 'https://amprzljphbcfbgjyjlbm.supabase.co';
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric", hour: '2-digit', minute: '2-digit', second: '2-digit' }
+    return new Date(dateString).toLocaleDateString(undefined, options)
+}
 
 export default function ChatPage() {
     const [mensagem, setMensagem] = React.useState('');
     const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
 
+    React.useEffect(() => {
+        supabaseClient
+            .from('mensagens')
+            .select('*')
+            .order('id', { ascending: false })
+            .then(({ data }) => {
+                console.log('Dados da consulta: ', data);
+                setListaDeMensagens(data);
+            });
+    }, []);
+
     function handleNovaMensagem(novaMensagem) {
         const mensagem = {
-            id: listaDeMensagens.length + 1,
+            //id: listaDeMensagens.length + 1,
             de: 'alexandre-ferreira-leite',
             texto: novaMensagem,
-            data: (new Date().toLocaleString()),
         };
-        setListaDeMensagens([
-            mensagem,
-            ...listaDeMensagens,
-        ]);
+
+        supabaseClient
+            .from('mensagens')
+            .insert([
+                mensagem
+            ])
+            .then(({ data }) => {
+                //console.log('Inserindo MSG: ', data);
+                setListaDeMensagens([
+                    data[0],
+                    ...listaDeMensagens,
+                ]);
+            });
+
+
         setMensagem('');
     }
 
@@ -123,7 +154,7 @@ function MessageList(props) {
         <Box
             tag="ul"
             styleSheet={{
-                //overflow: 'scroll',
+                overflowY: 'scroll',
                 display: 'flex',
                 flexDirection: 'column-reverse',
                 flex: 1,
@@ -171,7 +202,7 @@ function MessageList(props) {
                                 }}
                                 tag="span"
                             >
-                                {mensagem.data}{/* {(new Date().toLocaleDateString())} */}
+                                {formatDate(mensagem.created_at)}{/* {(new Date().toLocaleDateString())} */}
                             </Text>
                         </Box>
                         {mensagem.texto}
