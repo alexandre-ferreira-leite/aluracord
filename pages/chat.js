@@ -64,10 +64,6 @@ export default function ChatPage() {
             ])
             .then(({ data }) => {
                 console.log('Inserindo MSG: ', data);
-                //     setListaDeMensagens([
-                //         data[0],
-                //         ...listaDeMensagens,
-                //     ]);
             });
 
         setMensagem('');
